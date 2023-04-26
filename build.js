@@ -1,4 +1,4 @@
-import MeCab from "https://deno.land/x/deno_mecab@v1.2.3/mod.ts";
+import $ from "https://deno.land/x/dax/mod.ts";
 
 function kanaToHira(str) {
   return str.replace(/[\u30a1-\u30f6]/g, (match) => {
@@ -81,18 +81,6 @@ function json2html(problems) {
   return html;
 }
 
-async function text2json(mecab, path) {
-  const result = [];
-  const text = Deno.readTextFileSync(path);
-  const lines = text.trimEnd().split("\n");
-  for (const line of lines) {
-    const morphemes = await mecab.parse(line);
-    const cleanedMorphemes = cleanupMorphemes(morphemes);
-    result.push(cleanedMorphemes);
-  }
-  return result;
-}
-
 function countPP(problems) {
   const result = {};
   problems.forEach((morphemes) => {
@@ -121,11 +109,35 @@ function countPOS(problems) {
   console.log(result);
 }
 
-const mecab = new MeCab(["mecab"]);
-// const text = "今日は学校から帰ったらすぐプールへ行く必要がある。";
-// const morphemes = await mecab.parse(text)
-// const html = getFuriganaSentence(morphemes);
-const problems = await text2json(mecab, "problems.lst");
+// https://github.com/sera1mu/deno_mecab
+// deno_mecab style Mecab + IPADic parser, but 30x faster
+async function parseMecab(filepath) {
+  const result = [];
+  const stdout = await $`mecab ${filepath}`.text();
+  stdout.slice(0, -4).split("\nEOS\n").forEach((sentence) => {
+    const morphemes = [];
+    sentence.replace(/\t/g, ",").split("\n").forEach((line) => {
+      const cols = line.split(",");
+      const morpheme = {
+        surface: cols[0],
+        feature: cols[1],
+        featureDetails: [cols[2], cols[3], cols[4]],
+        conjugationForms: [cols[5], cols[6]],
+        originalForm: cols[7],
+        reading: cols[8],
+        pronunciation: cols[9],
+      };
+      morphemes.push(morpheme);
+    });
+    result.push(morphemes);
+  });
+  return result;
+}
+
+const result = await parseMecab("problems.lst");
+const problems = result.map((morphemes) => {
+  return cleanupMorphemes(morphemes);
+});
 countPP(problems);
 countPOS(problems);
 const html = json2html(problems);
