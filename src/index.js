@@ -89,7 +89,7 @@ async function loadProblems() {
   const response = await fetch(`problems.json`);
   const json = await response.json();
   problems = json;
-  setProblemCache();
+  changeCourse();
 }
 
 function nextProblem() {
@@ -257,10 +257,29 @@ function setSearchingChoice(course, morpheme, wrapperNode) {
   wrapperNode.appendChild(button);
 }
 
-function setProblemCache() {
-  const selectNode = document.getElementById("courseOption");
-  const courseNode = selectNode.options[selectNode.selectedIndex];
+function changeCourse() {
+  const courseSelect = document.getElementById("courseOption");
+  const courseNode = courseSelect.options[courseSelect.selectedIndex];
   const course = courseNode.value;
+  changeGradeByPOS(course);
+  setProblemCache(course);
+}
+
+function changeGradeByPOS(course) {
+  switch (course) {
+    case "形容動詞":
+    case "連体詞":
+    case "感動詞":
+    case "助動詞":
+    case "接頭詞": {
+      const gradeSelect = document.getElementById("gradeOption");
+      // 小学生なら中学生に変更
+      if (gradeSelect.selectedIndex == 0) gradeSelect.selectedIndex = 1;
+    }
+  }
+}
+
+function setProblemCache(course) {
   if (course == "形容動詞") {
     targetProblems = problems.filter((morphemes) => {
       return morphemes.find((morpheme, i) => {
@@ -396,7 +415,7 @@ loadProblems();
 
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("toggleBGM").onclick = toggleBGM;
-document.getElementById("courseOption").onchange = setProblemCache;
+document.getElementById("courseOption").onchange = changeCourse;
 document.getElementById("startButton").onclick = startGame;
 document.getElementById("answerButton").onclick = showAnswer;
 document.addEventListener("click", unlockAudio, {
