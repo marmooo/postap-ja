@@ -1,4 +1,4 @@
-var CACHE_NAME = "2023-05-13 13:35";
+var CACHE_NAME = "2023-05-13 13:40";
 var urlsToCache = [
   "/postap-ja/",
   "/postap-ja/index.js",
