@@ -159,12 +159,10 @@ function getFuriganas(morpheme) {
 
 function mergePOS(problem) {
   const gradeOption = document.getElementById("gradeOption");
-  const gradeNode = gradeOption.options[gradeOption.selectedIndex];
-  const grade = gradeNode.value;
-  if (grade != "大人") {
+  if (gradeOption.selectedIndex != 2) { // 大人
     problem = mergeAdjectiveVerbs(problem);
   }
-  if (grade == "小学生") {
+  if (gradeOption.selectedIndex == 0) { // 小学生
     problem = mergeAuxiliaryVerbs(problem);
   }
   return problem;
@@ -272,9 +270,9 @@ function changeGradeByPOS(course) {
     case "感動詞":
     case "助動詞":
     case "接頭詞": {
-      const gradeSelect = document.getElementById("gradeOption");
+      const gradeOption = document.getElementById("gradeOption");
       // 小学生なら中学生に変更
-      if (gradeSelect.selectedIndex == 0) gradeSelect.selectedIndex = 1;
+      if (gradeOption.selectedIndex == 0) gradeOption.selectedIndex = 1;
     }
   }
 }
