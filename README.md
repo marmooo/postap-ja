@@ -11,5 +11,6 @@ sudo apt install mecab mecab-ipadic-utf8
 ## Build
 
 ```
+deno run --allow-read --allow-write build.js
 bash build.sh
 ```
