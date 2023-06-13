@@ -415,6 +415,7 @@ document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("toggleBGM").onclick = toggleBGM;
 document.getElementById("courseOption").onchange = changeCourse;
 document.getElementById("startButton").onclick = startGame;
+document.getElementById("restartButton").onclick = startGame;
 document.getElementById("answerButton").onclick = showAnswer;
 document.addEventListener("click", unlockAudio, {
   once: true,
