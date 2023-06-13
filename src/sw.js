@@ -1,4 +1,4 @@
-var CACHE_NAME = "2023-05-13 13:55";
+var CACHE_NAME = "2023-06-14 05:30";
 var urlsToCache = [
   "/postap-ja/",
   "/postap-ja/index.js",
@@ -8,7 +8,6 @@ var urlsToCache = [
   "/postap-ja/problems.json",
   "/postap-ja/favicon/favicon.svg",
   "https://marmooo.github.io/fonts/textar-light.woff2",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
 ];
 
 self.addEventListener("install", function (event) {
