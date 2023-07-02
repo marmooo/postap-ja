@@ -53,18 +53,28 @@
       }
       #counter {
         font-size:10rem; width:12rem; height:12rem; line-height:12rem; border-radius: 50%;
-        background:tomato; margin:auto; }
+        background:tomato; color:black; margin:auto; }
       #aaOuter { background:transparent; display:flex; align-items:center; justify-content:center; }
       #aa { position:relative; top:0; left:0; margin:auto; }
       #typePanel { word-wrap: break-word; }
-      html[data-theme="dark"] { filter: invert(1) hue-rotate(180deg); }
-      @-moz-document url-prefix() { html[data-theme="dark"] { background-color:black; } }
+      html[data-bs-theme="dark"] .navbar-brand > img { filter: invert(1) hue-rotate(180deg); }
+      html[data-bs-theme="dark"] .btn-light {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: var(--bs-gray-800);
+        --bs-btn-border-color: var(--bs-gray-800);
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: var(--bs-gray-700);
+        --bs-btn-hover-border-color: var(--bs-gray-600);
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: var(--bs-gray-600);
+        --bs-btn-active-border-color: var(--bs-gray-500);
+      }
     </style>
     <script data-ad-client="ca-pub-6459713332128733" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand navbar-light">
+      <nav class="navbar navbar-expand">
         <div class="container flex-wrap">
           <a class="navbar-brand" href="/postap-ja/">
             <img alt="タップ品詞" src="/postap-ja/favicon/favicon.svg" width="32" height="32">
@@ -94,8 +104,8 @@
               </optgroup>
             </select>
             <button title="音楽を再生" id="toggleBGM" class="btn p-0 ms-1" type="button">
-              <svg id="bgmOn" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-              <svg id="bgmOff" class="d-none" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73L19.73 21 21 19.73 4.27 3zM14 7h4V3h-6v5.18l2 2z"/></svg>
+              <svg id="bgmOn" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              <svg id="bgmOff" class="d-none" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0z" fill="none"/><path d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73L19.73 21 21 19.73 4.27 3zM14 7h4V3h-6v5.18l2 2z"/></svg>
             </button>
             <button title="ダークモード切替" id="toggleDarkMode" class="fs-4 btn p-0 ms-1" type="button">🌓</button>
           </div>
