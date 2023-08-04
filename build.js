@@ -1,4 +1,4 @@
-import $ from "https://deno.land/x/dax/mod.ts";
+import { $ } from "https://deno.land/x/deno_dx/mod.ts";
 
 function kanaToHira(str) {
   return str.replace(/[\u30a1-\u30f6]/g, (match) => {
@@ -113,8 +113,8 @@ function countPOS(problems) {
 // deno_mecab style Mecab + IPADic parser, but 30x faster
 async function parseMecab(filepath) {
   const result = [];
-  const stdout = await $`mecab ${filepath}`.text();
-  stdout.slice(0, -4).split("\nEOS\n").forEach((sentence) => {
+  const stdout = await $`mecab ${filepath}`;
+  stdout.trimEnd().slice(0, -4).split("\nEOS\n").forEach((sentence) => {
     const morphemes = [];
     sentence.replace(/\t/g, ",").split("\n").forEach((line) => {
       const cols = line.split(",");
