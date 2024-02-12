@@ -240,14 +240,14 @@ function setSearchingChoice(course, morpheme, wrapperNode) {
       correctCount += 1;
       wrapperNode.classList.add("border", "border-primary");
       button.textContent = course;
-      playAudio("correct");
+      playAudio("correct", 0.3);
       solvedCount += 1;
       if (problemCount <= solvedCount) nextProblem();
     } else {
       incorrectCount += 1;
       wrapperNode.classList.add("bg-danger");
       button.textContent = morpheme.feature;
-      playAudio("incorrect");
+      playAudio("incorrect", 0.3);
     }
     button.disabled = true;
   };
