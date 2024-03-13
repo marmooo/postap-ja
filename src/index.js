@@ -15,7 +15,7 @@ let correctCount = 0;
 let incorrectCount = 0;
 let targetProblems = [];
 let problems = [];
-const audioContext = new AudioContext();
+const audioContext = new globalThis.AudioContext();
 const audioBufferCache = {};
 loadAudio("end", "mp3/end.mp3");
 loadAudio("correct", "mp3/correct3.mp3");
