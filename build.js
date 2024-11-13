@@ -1,4 +1,4 @@
-import { $ } from "https://deno.land/x/deno_dx/mod.ts";
+import { $ } from "npm:zx@8.1.9";
 
 function kanaToHira(str) {
   return str.replace(/[\u30a1-\u30f6]/g, (match) => {
@@ -113,24 +113,26 @@ function countPOS(problems) {
 // deno_mecab style Mecab + IPADic parser, but 30x faster
 async function parseMecab(filepath) {
   const result = [];
-  const stdout = await $`mecab ${filepath}`;
-  stdout.trimEnd().slice(0, -4).split("\nEOS\n").forEach((sentence) => {
-    const morphemes = [];
-    sentence.replace(/\t/g, ",").split("\n").forEach((line) => {
-      const cols = line.split(",");
-      const morpheme = {
-        surface: cols[0],
-        feature: cols[1],
-        featureDetails: [cols[2], cols[3], cols[4]],
-        conjugationForms: [cols[5], cols[6]],
-        originalForm: cols[7],
-        reading: cols[8],
-        pronunciation: cols[9],
-      };
-      morphemes.push(morpheme);
-    });
-    result.push(morphemes);
-  });
+  const cmdResult = await $`mecab ${filepath}`;
+  cmdResult.stdout.trimEnd().slice(0, -4).split("\nEOS\n").forEach(
+    (sentence) => {
+      const morphemes = [];
+      sentence.replace(/\t/g, ",").split("\n").forEach((line) => {
+        const cols = line.split(",");
+        const morpheme = {
+          surface: cols[0],
+          feature: cols[1],
+          featureDetails: [cols[2], cols[3], cols[4]],
+          conjugationForms: [cols[5], cols[6]],
+          originalForm: cols[7],
+          reading: cols[8],
+          pronunciation: cols[9],
+        };
+        morphemes.push(morpheme);
+      });
+      result.push(morphemes);
+    },
+  );
   return result;
 }
 
