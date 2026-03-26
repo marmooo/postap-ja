@@ -25,9 +25,6 @@ const audioBufferCache = {};
 loadConfig();
 
 function loadConfig() {
-  if (localStorage.getItem("darkMode") == 1) {
-    document.documentElement.setAttribute("data-bs-theme", "dark");
-  }
   if (localStorage.getItem("bgm") != 1) {
     document.getElementById("bgmOn").classList.add("d-none");
     document.getElementById("bgmOff").classList.remove("d-none");
@@ -35,13 +32,12 @@ function loadConfig() {
 }
 
 function toggleDarkMode() {
-  if (localStorage.getItem("darkMode") == 1) {
-    localStorage.setItem("darkMode", 0);
-    document.documentElement.setAttribute("data-bs-theme", "light");
-  } else {
-    localStorage.setItem("darkMode", 1);
-    document.documentElement.setAttribute("data-bs-theme", "dark");
-  }
+  const html = document.documentElement;
+  const newTheme = html.getAttribute("data-bs-theme") === "dark"
+    ? "light"
+    : "dark";
+  html.setAttribute("data-bs-theme", newTheme);
+  localStorage.setItem("darkMode", newTheme);
 }
 
 function toggleBGM() {

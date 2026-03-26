@@ -1,4 +1,4 @@
-const cacheName = "2025-12-08 00:00";
+const cacheName = "2026-03-27 00:00";
 const urlsToCache = [
   "/postap-ja/index.js",
   "/postap-ja/mp3/bgm.mp3",
